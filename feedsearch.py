@@ -4,28 +4,34 @@ from datetime import datetime
 # Standard-Keywords, falls keine Eingabe erfolgt
 DEFAULT_KEYWORDS = ["Germany", "USA"]
 
+# Korrigiertes RSS_FEEDS-Dictionary
 RSS_FEEDS = {
     "Netzpolitik": "https://netzpolitik.org/feed/",
+    "Kuketz Blog": "https://www.kuketz-blog.de/feed",
+    "Heise Security": "https://www.heise.de/security/feed.xml",
+    "Tarnkappe": "https://tarnkappe.info/feed",
+    "Linux News": "https://linuxnews.de/feed",
     "Tagesschau": "https://www.tagesschau.de/infoservices/alle-meldungen-100~rss2.xml",
     "BR24": "https://nachrichtenfeeds.br.de/rss/nachrichten/seiten/QXAPkQJ",
     "Welt": "https://www.welt.de/feeds/latest.rss",
     "Der Spiegel": "https://www.spiegel.de/index.rss",
     "FAZ": "https://www.faz.net/rss/aktuell/",
     "Die Zeit": "https://newsfeed.zeit.de/index",
-    "Kuketz Blog": "https://www.kuketz-blog.de/feed",
-    "Heise Security": "https://www.heise.de/security/feed.xml",
-    "Tarnkappe": "https://tarnkappe.info/feed",
-    "Linux News": "https://linuxnews.de/feed",
 }
 
+# Vollständiges Farbdictionary mit ANSI-Escape-Codes
 COLORS = {
-    "Netzpolitik": "\033[95m",
-    "Tagesschau": "\033[91m",
-    "BR24": "\033[92m",
-    "Welt": "\033[93m",
-    "Der Spiegel": "\033[94m",
-    "FAZ": "\033[96m",
-    "Die Zeit": "\033[97m",
+    "Netzpolitik": "\033[95m",    # Magenta
+    "Kuketz Blog": "\033[90m",    # Graustufe / Bright Black
+    "Heise Security": "\033[33m", # Braun / Dark Yellow
+    "Tarnkappe": "\033[35m",     # Dark Magenta / Violett
+    "Linux News": "\033[32m",     # Grün
+    "Tagesschau": "\033[91m",     # Hellrot
+    "BR24": "\033[92m",           # Hellgrün
+    "Welt": "\033[93m",           # Hellgelb
+    "Der Spiegel": "\033[94m",    # Hellblau
+    "FAZ": "\033[96m",            # Hellcyan
+    "Die Zeit": "\033[97m",       # Weiß
 }
 
 RESET = "\033[0m"
@@ -81,7 +87,7 @@ if __name__ == "__main__":
     keywords = get_user_keywords()
     
     print(f"\n🔍 Suche nach Schlagwörtern: {', '.join(keywords)}")
-    print("=" * 105)
+    print("------------------------------------------------------------")
 
     articles = search_news(keywords)
     print(f"✅ Gefundene Artikel: {len(articles)}\n")
@@ -90,7 +96,8 @@ if __name__ == "__main__":
         print("Keine passenden Artikel gefunden.")
     else:
         for a in articles:
-            color = COLORS.get(a["source"], "")
+            # Standardmäßig Fallback auf Reset-Code, falls eine Quelle fehlen sollte
+            color = COLORS.get(a["source"], RESET)
             print(f"{color}[{a['source']}] {a['title']}{RESET}")
             print(f"{color}📅 Veröffentlicht: {a['date']}{RESET}")
             print(f"{color}{a['link']}{RESET}")
