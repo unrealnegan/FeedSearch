@@ -1,8 +1,8 @@
 import feedparser
 from datetime import datetime
 
-# Schlagwörter
-KEYWORDS = ["Trump", "USA", "Biden", "Demokraten", "Republikaner", "Grönland"]
+# Standard-Keywords, falls keine Eingabe erfolgt
+DEFAULT_KEYWORDS = ["Germany", "USA"]
 
 RSS_FEEDS = {
     "Netzpolitik": "https://netzpolitik.org/feed/",
@@ -12,6 +12,10 @@ RSS_FEEDS = {
     "Der Spiegel": "https://www.spiegel.de/index.rss",
     "FAZ": "https://www.faz.net/rss/aktuell/",
     "Die Zeit": "https://newsfeed.zeit.de/index",
+    "Kuketz Blog": "https://www.kuketz-blog.de/feed"
+    "Heise Security": "https://www.heise.de/security/feed.xml"
+    "Tarnkappe": "https://tarnkappe.info/feed"
+    "Linux News": "https://linuxnews.de/feed"
 }
 
 COLORS = {
@@ -63,11 +67,23 @@ def search_news(keywords):
     return results
 
 
+def get_user_keywords():
+    user_input = input("Gib die Suchbegriffe ein (getrennt durch Kommas): ").strip()
+    if not user_input:
+        print(f"Keine Eingabe – verwende Standard-Keywords.")
+        return DEFAULT_KEYWORDS
+    
+    # Trennen am Komma und Leerzeichen entfernen
+    return [kw.strip() for kw in user_input.split(",") if kw.strip()]
+
+
 if __name__ == "__main__":
-    print(f"🔍 Suche nach Schlagwörtern: {', '.join(KEYWORDS)}")
+    keywords = get_user_keywords()
+    
+    print(f"\n🔍 Suche nach Schlagwörtern: {', '.join(keywords)}")
     print("=" * 105)
 
-    articles = search_news(KEYWORDS)
+    articles = search_news(keywords)
     print(f"✅ Gefundene Artikel: {len(articles)}\n")
 
     if not articles:
