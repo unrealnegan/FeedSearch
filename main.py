@@ -12,10 +12,10 @@ RSS_FEEDS = {
     "Der Spiegel": "https://www.spiegel.de/index.rss",
     "FAZ": "https://www.faz.net/rss/aktuell/",
     "Die Zeit": "https://newsfeed.zeit.de/index",
-    "Kuketz Blog": "https://www.kuketz-blog.de/feed"
-    "Heise Security": "https://www.heise.de/security/feed.xml"
-    "Tarnkappe": "https://tarnkappe.info/feed"
-    "Linux News": "https://linuxnews.de/feed"
+    "Kuketz Blog": "https://www.kuketz-blog.de/feed",
+    "Heise Security": "https://www.heise.de/security/feed.xml",
+    "Tarnkappe": "https://tarnkappe.info/feed",
+    "Linux News": "https://linuxnews.de/feed",
 }
 
 COLORS = {
